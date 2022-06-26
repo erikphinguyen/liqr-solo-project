@@ -18,13 +18,12 @@ if (process.env.NODE_ENV !== 'production') {
   window.sessionActions = sessionActions;
 }
 
-// may need?
-// if (process.env.NODE_ENV !== 'production') {
-//   restoreCSRF();
+if (process.env.NODE_ENV !== 'production') {
+  restoreCSRF();
 
-//   window.csrfFetch = csrfFetch;
-//   window.store = store;
-// }
+  window.csrfFetch = csrfFetch;
+  window.store = store;
+}
 
 if (process.env.NODE_ENV !== "production") {
   window.store = store;

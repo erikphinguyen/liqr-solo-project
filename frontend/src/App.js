@@ -1,13 +1,24 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-// import LoginFormPage from './components/LoginFormPage';
-// -----> error: Module not found: Error: Can't resolve './components/LoginFormPage' in '/home/erikphinguyen/appacademy/liqr-solo-project/frontend/src'
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import LoginFormPage from "./components/LoginFormPage";
+import SignupFormPage from "./components/SignupFormPage";
+import * as sessionActions from "./store/session";
+
 function App() {
-  return (
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  return isLoaded && (
     <Switch>
-      <h1>Hello World!</h1>
       <Route path="/login">
-        {/* <LoginFormPage /> */}
+        <LoginFormPage />
+      </Route>
+      <Route path="/signup">
+        <SignupFormPage />
       </Route>
     </Switch>
   );
