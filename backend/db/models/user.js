@@ -61,10 +61,6 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(id);
   };
 
-  User.associate = function (models) {
-    // associations can be defined here
-  };
-
   User.login = async function ({ credential, password }) {
     const { Op } = require('sequelize');
     const user = await User.scope('loginUser').findOne({
@@ -88,6 +84,11 @@ module.exports = (sequelize, DataTypes) => {
       hashedPassword
     });
     return await User.scope('currentUser').findByPk(user.id);
+  };
+
+  User.associate = function (models) {
+    // associations can be defined here
+    User.hasMany(models.Image, { foreignKey: "userId", onDelete: 'CASCADE', hooks: true })
   };
 
   return User;
