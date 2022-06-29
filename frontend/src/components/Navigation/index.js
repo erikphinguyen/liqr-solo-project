@@ -41,6 +41,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
+import PostImage from '../PostImage'
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -48,13 +49,25 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <ProfileButton user={sessionUser} />
+            <>
+                <div>
+                    <ProfileButton user={sessionUser} />
+                </div>
+                <div className='upload-button-container'>
+                    <button >Add Cocktail</button>
+                    <PostImage user={sessionUser} />
+                </div>
+            </>
         );
     } else {
         sessionLinks = (
             <>
-                <LoginFormModal />
-                <NavLink to="/signup">Sign Up</NavLink>
+                <div>
+                    <LoginFormModal />
+                </div>
+                <div>
+                    <NavLink to="/signup">Sign Up</NavLink>
+                </div>
             </>
         );
     }

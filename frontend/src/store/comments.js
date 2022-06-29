@@ -81,7 +81,7 @@ export const thunkPostCommments = (data, usersId) => async dispatch => {
 };
 
 export const thunkDeleteComments = (commentId, userId) => async dispatch => {
-    const response = await fetch(`/api/comments/${commentId}`, {
+    const response = await fetch(`/api//${commentId}`, {
         method: 'DELETE',
     });
 
