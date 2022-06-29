@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User, Image } = require('../../db/models');
+const db = require('../../db/models');
 
-const { check, validationResult } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
-const { db } = require('../../config');
+// const { check, validationResult } = require('express-validator');
+// const { setTokenCookie, restoreUser } = require('../../utils/auth');
+// const { handleValidationErrors } = require('../../utils/validation');
 
 // GET ALL IMAGES
 router.get('/', asyncHandler(async function (req, res) {
@@ -16,21 +16,21 @@ router.get('/', asyncHandler(async function (req, res) {
 }));
 
 // GET SINGLE IMAGE
-router.get('/:id', asyncHandler(async function (req, res) {
+router.get('/:id(\\d+)', asyncHandler(async function (req, res) {
     const image = await Image.findByPk(req.params.id);
     return res.json(image);
 }))
 
 // POST IMAGE
-router.get('/', asyncHandler(async function (req, res) {
-    const id = await Image.build(req.body); // maybe use .create(req.body)?
-    return res.redirect(`${req.url}/${id}`)
+router.post('/', asyncHandler(async function (req, res) {
+    const id = await Image.create(req.body);
+    return res.json(id)
 }))
 
-// PUT (UPDATE) IMAGES, THIS HARD AF
-router.get('/:imageId/edit', asyncHandler(async (req, res) => {
+// PUT (UPDATE) IMAGES, EXTRA HELP
+router.put('/:imageId', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.imageId, 10);
-    const image = await db.Image.findByPk(imageId);
+    const image = await Image.findByPk(imageId);
 
     res.render("edit-image", {
         title: `Edit your image ${image.title}`, // is this right?
@@ -40,21 +40,10 @@ router.get('/:imageId/edit', asyncHandler(async (req, res) => {
     })
 }));
 
-const validateLogin = [
-    check('credential')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage('Please provide a valid email or username.'),
-    check('password')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a password.'),
-    handleValidationErrors
-];
 
-
-router.get('/:imageId/edit', asyncHandler(async (req, res) => {
+router.put('/:imageId/edit', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.imageId, 10);
-    const image = await db.Image.findByPk(imageId);
+    const image = await Image.findByPk(imageId);
 
     const { imageUrl, title, contributor, ingredients } = req.body;
     const newEdit = { imageUrl, title, contributor, ingredients }
@@ -80,18 +69,11 @@ router.get('/:imageId/edit', asyncHandler(async (req, res) => {
 
 
 // DELETE IMAGE
-router.get('/:userId/:imageId/delete', async (req, res) => {
-    const userId = parseInt(req.params.userId, 10);
-    const imageId = parseInt(req.params.imageId, 10);
-    const images = await db.Image.findOne({
-        where: {
-            id: imageId,
-            userId // forgot what this references to; maybe use id?
-        }
-    });
-
+router.delete('/:id(\\d+)', async (req, res) => {
+    const { id } = req.params;
+    const images = await Image.findByPk(id);
     await images.destroy();
-    res.json({
+    return res.json({
         message: "image deleted"
     })
 })

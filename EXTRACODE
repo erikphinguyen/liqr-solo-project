@@ -1,0 +1,5 @@
+                        {/* <a href={`/images/${image.id}`}
+                            onClick={event => {
+                                event.preventDefault();
+                                history.pushState(`/photos/${photo.id}`)
+                            }}></a> */}
