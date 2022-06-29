@@ -29,6 +29,11 @@ const Images = () => {
                         <NavLink to={`/images/${image.id}`}>
                             <img src={image.imageUrl}></img>
                         </NavLink>
+                        <input
+                            type="text"
+                            placeholder="New Cocktail..."
+                            onChange
+                        />
                     </div>
                 ))
             }
