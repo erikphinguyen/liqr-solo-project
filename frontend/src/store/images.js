@@ -2,54 +2,72 @@
 // import { response } from 'express';
 
 // TYPES
-const GET_PHOTOS = 'session/get_photos';
-const POST_PHOTOS = 'session/post_photos';
-const PUT_PHOTOS = 'session/put_photos';
-const DELETE_PHOTOS = 'session/delete_photos';
+const GET_IMAGES = 'images/get_images';
+const GET_ONE_IMAGE = 'images/get_one_image';
+const POST_IMAGES = 'images/post_images';
+const PUT_IMAGES = 'images/put_images';
+const DELETE_IMAGES = 'images/delete_images';
 
 // ACTION CREATORS
-const getPhotos = (photos) => {
+const getImages = (images) => {
     return {
-        type: GET_PHOTOS,
-        photos,
-        userId
+        type: GET_IMAGES,
+        images
     }
 }
 
-const postPhotos = (photos) => {
+const getOneImage = (images) => {
     return {
-        type: POST_PHOTOS,
-        photos
+        type: GET_ONE_IMAGE,
+        images
     }
 }
 
-const putPhotos = (photos) => {
+const postImages = (images) => {
     return {
-        type: PUT_PHOTOS,
-        photos
+        type: POST_IMAGES,
+        images
     }
 }
 
-const deletePhotos = (photosId, userId) => {
+const putImages = (images) => {
     return {
-        type: DELETE_PHOTOS,
-        photosId,
+        type: PUT_IMAGES,
+        images
+    }
+}
+
+const deleteImages = (imagesId, userId) => {
+    return {
+        type: DELETE_IMAGES,
+        imagesId,
         userId
     }
 }
 
 // THUNKS
-export const thunkGetPhotos = (userId) => async (dispatch) => {
-    const response = await fetch(`/api/user/${userId}/photos`)
+// GET ALL IMAGES
+export const thunkGetImages = () => async (dispatch) => {
+    const response = await fetch(`/api/images`)
 
     if (response.ok) {
-        const photos = await response.json();
-        dispatch(getPhotos(photos, userId));
+        const images = await response.json();
+        dispatch(getImages(images));
     }
 }
 
-export const thunkPutPhotos = data => async dispatch => {
-    const response = await fetch(`/api/photos/${data.id}`, {
+// GET ONE IMAGE
+export const thunkGetOneImage = (id) => async (dispatch) => {
+    const response = await fetch(`/api/images/${id}`)
+
+    if (response.ok) {
+        const images = await response.json();
+        dispatch(getOneImage(images));
+    }
+}
+
+export const thunkPutImages = data => async dispatch => {
+    const response = await fetch(`/api/images/${data.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -58,14 +76,14 @@ export const thunkPutPhotos = data => async dispatch => {
     });
 
     if (response.ok) {
-        const photo = await response.json();
-        dispatch(putPhotos(photo));
-        return photo;
+        const image = await response.json();
+        dispatch(putImages(image));
+        return image;
     }
 };
 
-export const thunkPostPhotos = (data, usersId) => async dispatch => {
-    const response = await fetch(`/api/users/${usersId}/photos`, {
+export const thunkPostImages = (data) => async dispatch => {
+    const response = await fetch(`/api/images`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -74,48 +92,54 @@ export const thunkPostPhotos = (data, usersId) => async dispatch => {
     });
 
     if (response.ok) {
-        const photo = await response.json();
-        dispatch(postPhotos(photo));
-        return photo;
+        const image = await response.json();
+        dispatch(postImages(image));
+        return image;
     }
 };
 
-export const thunkDeletePhotos = (photoId, userId) => async dispatch => {
-    const response = await fetch(`/api/photos/${photoId}`, {
+export const thunkDeleteImages = (id) => async dispatch => {
+    const response = await fetch(`/api/images/${id}`, {
         method: 'DELETE',
     });
 
     if (response.ok) {
-        const { id: deletedPhotoId } = await response.json();
-        dispatch(deletePhotos(deletedPhotoId, userId));
-        return deletedPhotoId;
+        const { id: deletedImageId } = await response.json();
+        dispatch(deleteImages(deletedImageId));
+        return deletedImageId;
     }
 };
 
 // REDUCER
-
-const initialState = {};
+const initialState = { entries: {}, isLoading: true };
 
 const imagesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_PHOTOS:
-            const newPhotos = {};
-            action.photos.forEach(photo => {
-                newPhotos[photo.id] = photo;
+        case GET_IMAGES:
+            const newImages = {};
+            action.images.forEach(image => {
+                newImages[image.id] = image;
             })
             return {
                 ...state,
-                ...newPhotos
+                ...newImages
             }
-        case DELETE_PHOTOS:
-            const newState = { ...state };
-            delete newState[action.photosId];
-            return newState;
-        case POST_PHOTOS:
-        case PUT_PHOTOS:
+        case GET_ONE_IMAGE:
+            const newState = { ...state, entries: { ...state.entries } };
+            newState.entries[action.image.id] = action.image
+            return newState
+        case DELETE_IMAGES:
+            const deleteState = { ...state, entries: { ...state.entries } };
+            delete deleteState[action.image.id];
+            return deleteState;
+        case POST_IMAGES:
+            const postState = { ...state, entries: { ...state.entries } };
+            postState.entries[action.image.id] = action.image
+            return postState;
+        case PUT_IMAGES:
             return {
                 ...state,
-                [action.photo.id]: action.photo
+                [action.image.id]: action.image
             };
         default:
             return state;

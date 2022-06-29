@@ -61,10 +61,13 @@ function Navigation({ isLoaded }) {
 
     return (
         <ul>
-            <li>
-                <NavLink exact to="/">Home</NavLink>
+            <div>
+                <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}>liqr</NavLink>
                 {isLoaded && sessionLinks}
-            </li>
+            </div>
+            <div>
+                <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Images</NavLink>
+            </div>
         </ul>
     );
 }
