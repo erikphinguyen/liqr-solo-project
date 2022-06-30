@@ -1,4 +1,4 @@
-// import { csrfFetch } from '.csrf';
+import { csrfFetch } from './csrf';
 // import { response } from 'express';
 
 // TYPES
@@ -37,18 +37,17 @@ const putImages = (images) => {
     }
 }
 
-const deleteImages = (imagesId, userId) => {
+const deleteImages = (id) => {
     return {
         type: DELETE_IMAGES,
-        imagesId,
-        userId
+        id
     }
 }
 
 // THUNKS
 // GET ALL IMAGES
 export const thunkGetImages = () => async (dispatch) => {
-    const response = await fetch(`/api/images`)
+    const response = await csrfFetch(`/api/images`)
 
     if (response.ok) {
         const images = await response.json();
@@ -58,7 +57,7 @@ export const thunkGetImages = () => async (dispatch) => {
 
 // GET ONE IMAGE
 export const thunkGetOneImage = (id) => async (dispatch) => {
-    const response = await fetch(`/api/images/${id}`)
+    const response = await csrfFetch(`/api/images/${id}`)
 
     if (response.ok) {
         const images = await response.json();
@@ -67,7 +66,7 @@ export const thunkGetOneImage = (id) => async (dispatch) => {
 }
 
 export const thunkPutImages = data => async dispatch => {
-    const response = await fetch(`/api/images/${data.id}`, {
+    const response = await csrfFetch(`/api/images/${data.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -83,7 +82,7 @@ export const thunkPutImages = data => async dispatch => {
 };
 
 export const thunkPostImages = (data) => async dispatch => {
-    const response = await fetch(`/api/images`, {
+    const response = await csrfFetch(`/api/images`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -99,7 +98,7 @@ export const thunkPostImages = (data) => async dispatch => {
 };
 
 export const thunkDeleteImages = (id) => async dispatch => {
-    const response = await fetch(`/api/images/${id}`, {
+    const response = await csrfFetch(`/api/images/${id}`, {
         method: 'DELETE',
     });
 
@@ -126,20 +125,22 @@ const imagesReducer = (state = initialState, action) => {
             }
         case GET_ONE_IMAGE:
             const newState = { ...state, entries: { ...state.entries } };
-            newState.entries[action.image.id] = action.image
+            newState.entries[action.images.id] = action.images
             return newState
         case DELETE_IMAGES:
-            const deleteState = { ...state, entries: { ...state.entries } };
-            delete deleteState[action.image.id];
+            const deleteState = { ...state };
+            delete deleteState[action.id]
             return deleteState;
+        // const filteredImages = state.images.filter(image => image.id !== action.id)
+        // return { ...state, images: filteredImages }
         case POST_IMAGES:
             const postState = { ...state, entries: { ...state.entries } };
-            postState.entries[action.image.id] = action.image
+            postState.entries[action.images.id] = action.images
             return postState;
         case PUT_IMAGES:
             return {
                 ...state,
-                [action.image.id]: action.image
+                [action.images.id]: action.images
             };
         default:
             return state;

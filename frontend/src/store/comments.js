@@ -1,18 +1,16 @@
-// import { csrfFetch } from '.csrf';
+import { csrfFetch } from './csrf';
 // import { response } from 'express';
 
 // TYPES
-const GET_COMMENTS = 'session/get_comments';
-const POST_COMMENTS = 'session/post_comments';
-const PUT_COMMENTS = 'session/put_comments';
-const DELETE_COMMENTS = 'session/delete_comments';
+const GET_COMMENTS = 'images/get_comments';
+const POST_COMMENTS = 'images/post_comments';
+const DELETE_COMMENTS = 'images/delete_comments';
 
 // ACTION CREATORS
 const getComments = (comments) => {
     return {
         type: GET_COMMENTS,
-        comments,
-        userId
+        comments
     }
 }
 
@@ -23,49 +21,26 @@ const postComments = (comments) => {
     }
 }
 
-const putComments = (comments) => {
+const deleteComments = (comments) => {
     return {
-        type: PUT_COMMENTS,
+        type: DELETE_COMMENTS,
         comments
     }
 }
 
-const deleteComments = (commentId, userId) => {
-    return {
-        type: DELETE_COMMENTS,
-        commentId,
-        userId
-    }
-}
-
 // THUNKS
-export const thunkGetComments = (userId) => async (dispatch) => {
-    const reponse = await fetch(`/api/user/${userId}/comments`)
+// ALL COMMENTS ON ONE IMAGE
+export const thunkGetComments = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/comments`)
 
     if (response.ok) {
         const comments = await response.json();
-        dispatch(getComments(comments, userId));
+        dispatch(getComments(comments));
     }
 }
 
-export const thunkPutComments = data => async dispatch => {
-    const response = await fetch(`/api/comments/${data.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-
-    if (response.ok) {
-        const comments = await response.json();
-        dispatch(putComments(comments));
-        return comments;
-    }
-};
-
-export const thunkPostCommments = (data, usersId) => async dispatch => {
-    const response = await fetch(`/api/users/${usersId}/comments`, {
+export const thunkPostCommments = (data) => async dispatch => {
+    const response = await csrfFetch(`/api/comments/${data.imageId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -80,21 +55,21 @@ export const thunkPostCommments = (data, usersId) => async dispatch => {
     }
 };
 
-export const thunkDeleteComments = (commentId, userId) => async dispatch => {
-    const response = await fetch(`/api//${commentId}`, {
+export const thunkDeleteComments = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/comments/${id}`, {
         method: 'DELETE',
     });
 
     if (response.ok) {
         const { id: deletedCommentId } = await response.json();
-        dispatch(deleteComments(deletedCommentId, userId));
+        dispatch(deleteComments(deletedCommentId));
         return deletedCommentId;
     }
 };
 
 // REDUCER
 
-const initialState = {};
+const initialState = { entries: {}, isLoading: true };
 
 const commentsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -108,15 +83,13 @@ const commentsReducer = (state = initialState, action) => {
                 ...newComments
             }
         case DELETE_COMMENTS:
-            const newState = { ...state };
-            delete newState[action.commentId];
-            return newState;
+            const deleteState = { ...state };
+            delete deleteState[action.commentId];
+            return deleteState;
         case POST_COMMENTS:
-        case PUT_COMMENTS:
-            return {
-                ...state,
-                [action.comment.id]: action.comment
-            };
+            const postState = { ...state, entries: { ...state.entries } };
+            postState.entries[action.images.id] = action.images
+            return postState;
         default:
             return state;
     }

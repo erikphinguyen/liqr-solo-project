@@ -55,11 +55,11 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/images">
-            <Images />
-          </Route>
           <Route path="/images/:id">
             <OneImage />
+          </Route>
+          <Route path="/images">
+            <Images />
           </Route>
           <Route path="/signup">
             <SignupFormPage />

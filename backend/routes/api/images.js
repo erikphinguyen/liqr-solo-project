@@ -4,6 +4,7 @@ const asyncHandler = require('express-async-handler');
 
 const { User, Image } = require('../../db/models');
 const db = require('../../db/models');
+const { requireAuth } = require('../../utils/validation')
 
 // const { check, validationResult } = require('express-validator');
 // const { setTokenCookie, restoreUser } = require('../../utils/auth');
@@ -17,7 +18,8 @@ router.get('/', asyncHandler(async function (req, res) {
 
 // GET SINGLE IMAGE
 router.get('/:id(\\d+)', asyncHandler(async function (req, res) {
-    const image = await Image.findByPk(req.params.id);
+    const { id } = req.params;
+    const image = await Image.findByPk(id);
     return res.json(image);
 }))
 
@@ -28,16 +30,21 @@ router.post('/', asyncHandler(async function (req, res) {
 }))
 
 // PUT (UPDATE) IMAGES, EXTRA HELP
-router.put('/:imageId', asyncHandler(async (req, res) => {
-    const imageId = parseInt(req.params.imageId, 10);
-    const image = await Image.findByPk(imageId);
+router.put('/:id', asyncHandler(async (req, res) => {
+    const { title, imageUrl, ingredients } = req.body
+    const id = parseInt(req.params.id);
+    const image = await Image.findByPk(id);
+    image.title = title
+    image.ingredients = ingredients
+    await image.save()
 
-    res.render("edit-image", {
-        title: `Edit your image ${image.title}`, // is this right?
-        imageUrl,
-        contributor,
-        ingredients
-    })
+    res.json(image)
+    // res.render("edit-image", {
+    //     title: `Edit your image ${image.title}`, // is this right?
+    //     imageUrl,
+    //     contributor,
+    //     ingredients
+    // })
 }));
 
 
@@ -70,8 +77,11 @@ router.put('/:imageId/edit', asyncHandler(async (req, res) => {
 
 // DELETE IMAGE
 router.delete('/:id(\\d+)', async (req, res) => {
+
     const { id } = req.params;
+
     const images = await Image.findByPk(id);
+    // console.log(images)
     await images.destroy();
     return res.json({
         message: "image deleted"
