@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { thunkGetComments, thunkPostCommments } from '../../store/comments';
-import { thunkGetOneImage, thunkPutImages } from '../../store/images';
+// import { thunkGetOneImage, thunkPutImages } from '../../store/images';
 import './onepage.css';
 
 const Comments = () => {
@@ -13,6 +13,7 @@ const Comments = () => {
     })
     const commentsArr = Object.values(comments)
 
+    // use this for POST COMMENTS
     // const [newComment, setNewComment] = useState(false);
 
     // GET COMMENTS

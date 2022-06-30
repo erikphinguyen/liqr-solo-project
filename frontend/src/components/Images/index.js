@@ -36,11 +36,11 @@ const Images = () => {
                         value={image.id}
                     >
                         {image.title}
-                        <button onClick={() => handleDelete(image.id)}>delete</button>
                         <NavLink to={`/images/${image.id}`}>
                             <img src={image.imageUrl}></img>
                         </NavLink>
 
+                        <button onClick={() => handleDelete(image.id)}>delete</button>
                     </div>
                 ))
             }

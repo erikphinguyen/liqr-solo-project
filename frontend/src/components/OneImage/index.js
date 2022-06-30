@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Route, useParams } from 'react-router-dom';
 import { thunkGetOneImage, thunkPutImages } from '../../store/images'
 import './onepage.css'
-// import Comments from './comments'
+import Comments from './comments'
 
 const OneImage = () => {
     const dispatch = useDispatch();
@@ -48,12 +48,13 @@ const OneImage = () => {
                     alt={singleImage.title}
                 />
                 <p>
+                    <h4>Ingredients:</h4>
                     {singleImage.ingredients}
                 </p>
                 <button onClick={() => setEditMode(true)}>edit</button>
-                {/* <div>
+                <div>
                     <Comments />
-                </div> */}
+                </div>
             </div>
 
             {
