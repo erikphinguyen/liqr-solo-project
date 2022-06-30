@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { User, Image } = require('../../db/models');
 
 const { check, validationResult } = require('express-validator');
@@ -10,18 +10,33 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { db } = require('../../config');
 
 // GET ALL COMMENTS OF CERTAIN IMAGE
-router.get('/:id/comments', async (req, res) => {
-    const id = req.params.id;
-    const image = await db.Image.findByPk(id);
-    let comments = await db.Comment.findAll({
-        where: { imageId: id }
+router.get('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const image = await Image.findByPk(id);
+    let comments = await Comment.findAll({
+        where: { id: id }
     });
 
-    if (req.session.auth) {
-        const { userId } = req.session.auth;
-        res.render("comments", { comments, userId, id });
-    } else {
-        const userId = null;
-        res.render("comments", { comments, userId, id });
-    }
-});
+    return res.json(comments);
+}));
+
+// POST COMMENT
+router.post('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { userId, content } = req.body;
+    const newComment = await Comment.create({
+        userId, content, id
+    });
+    const payload = await Comment.findByPk(newComment.id)
+    return res.json(payload);
+}))
+
+//  // DELETE COMMENT
+router.delete('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const comment = await Comment.findByPk(id)
+    await comment.destroy();
+    res.json({
+        message: "comment deleted"
+    })
+}))

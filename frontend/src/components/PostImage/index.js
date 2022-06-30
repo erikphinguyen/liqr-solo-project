@@ -38,7 +38,7 @@ function PostImage() {
 
     return (
         <div className='inputImage'>
-            <h1>Upload New Item</h1>
+            <h1>Upload New Drink</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'

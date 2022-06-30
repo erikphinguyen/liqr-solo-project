@@ -42,9 +42,15 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import PostImage from '../PostImage'
+import { thunkPostImages } from '../../store/images'
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('test')
+    }
 
     let sessionLinks;
     if (sessionUser) {
@@ -54,7 +60,7 @@ function Navigation({ isLoaded }) {
                     <ProfileButton user={sessionUser} />
                 </div>
                 <div className='upload-button-container'>
-                    <button >Add Cocktail</button>
+                    {/* <button>Add Cocktail</button> */}
                     <PostImage user={sessionUser} />
                 </div>
             </>
