@@ -40,6 +40,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
+import SignUpFormModal from '../SignUpFormModal';
 import './Navigation.css';
 import PostImage from '../PostImage'
 import { thunkPostImages } from '../../store/images'
@@ -55,39 +56,50 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <>
-                <div>
+            <nav>
+                <div className='right-nav-bar'>
                     <ProfileButton user={sessionUser} />
                 </div>
                 <div className='upload-button-container'>
-                    {/* <button>Add Cocktail</button> */}
-                    <PostImage user={sessionUser} />
+                    {/* <NavLink to="/upload">Upload Drink</NavLink> */}
+                    {/* <PostImage user={sessionUser} /> */}
                 </div>
-            </>
+            </nav>
         );
     } else {
         sessionLinks = (
-            <>
-                <div>
-                    <LoginFormModal />
-                </div>
-                <div>
+            <nav>
+                <>
+                    <li>
+                        <LoginFormModal />
+                    </li>
+                    <li>
+                        <SignUpFormModal />
+                    </li>
+                </>
+                {/* <div className='right-nav-bar'>
                     <NavLink to="/signup">Sign Up</NavLink>
-                </div>
-            </>
+                </div> */}
+            </nav>
         );
     }
 
     return (
-        <ul>
-            <div>
-                <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}>liqr</NavLink>
-                {isLoaded && sessionLinks}
-            </div>
-            <div>
-                <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Images</NavLink>
-            </div>
-        </ul>
+        <nav className='navigation'>
+            <ul className='navigation'>
+                <li>
+                    <li className='left-nav-bar'>
+                        <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}>liqr</NavLink>
+                    </li>
+                    <div className='right-nav-bar'>
+                        {isLoaded && sessionLinks}
+                    </div>
+                    <li class>
+                        <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Drinks</NavLink>
+                    </li>
+                </li>
+            </ul>
+        </nav>
     );
 }
 

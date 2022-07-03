@@ -40,3 +40,5 @@ router.delete('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, r
         message: "comment deleted"
     })
 }))
+
+module.exports = router;

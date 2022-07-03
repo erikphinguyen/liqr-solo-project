@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Route, useParams } from 'react-router-dom';
 import { thunkGetOneImage, thunkPutImages } from '../../store/images'
 import './onepage.css'
-// import Comments from './comments'
+import Comments from './comments'
 
 const OneImage = () => {
     const dispatch = useDispatch();
@@ -12,8 +12,10 @@ const OneImage = () => {
     const singleImage = useSelector(state => {
         return state.images[id]
     });
-    const imagesArr = Object.values(singleImage)
-
+    // console.log("SINGLE IMAGE TESTING", singleImage?.Comments)
+    // const imagesArr = Object.values(singleImage)
+    const comments = singleImage?.Comments;
+    // console.log('TESTING COMMENTS', comments)
     const [editMode, setEditMode] = useState(false)
 
 
@@ -37,7 +39,7 @@ const OneImage = () => {
         dispatch(thunkPutImages(data))
     }
 
-    if (!imagesArr) return null
+    if (!singleImage) return null
 
     return (
         <div>
@@ -51,9 +53,6 @@ const OneImage = () => {
                     {singleImage.ingredients}
                 </p>
                 <button onClick={() => setEditMode(true)}>edit</button>
-                {/* <div>
-                    <Comments />
-                </div> */}
             </div>
 
             {
@@ -77,6 +76,10 @@ const OneImage = () => {
                     </div>
                 ) : null
             }
+            <div>
+                <Comments comments={comments} />
+            </div>
+
         </div>
     )
 

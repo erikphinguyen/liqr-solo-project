@@ -42,12 +42,21 @@ import OneImage from "./components/OneImage"
 // import PostImage from "./components/PostImage"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import { thunkGetImages, thunkGetOneImage } from "./store/images";
+import { thunkGetComments } from "./store/comments";
+import HomePage from "./components/HomePage"
+import Footer from "./components/Footer"
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser())
+      // to hydrate on initial render
+      // .then(thunkGetImages())
+      // .then(thunkGetOneImage())
+      // .then(thunkGetComments())
+      .then(() => setIsLoaded(true));
   }, [dispatch]);
 
   return (
@@ -55,6 +64,10 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <HomePage />
+            <Footer />
+          </Route>
           <Route path="/images/:id">
             <OneImage />
           </Route>

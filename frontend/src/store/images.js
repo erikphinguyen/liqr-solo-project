@@ -59,8 +59,10 @@ export const thunkGetImages = () => async (dispatch) => {
 export const thunkGetOneImage = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/images/${id}`)
 
+    console.log("RESPONSE TEST", response)
     if (response.ok) {
         const images = await response.json();
+        console.log(images)
         dispatch(getOneImage(images));
     }
 }
@@ -110,9 +112,10 @@ export const thunkDeleteImages = (id) => async dispatch => {
 };
 
 // REDUCER
-const initialState = { entries: {}, isLoading: true };
+// const initialState = { entries: {}, isLoading: true };
 
-const imagesReducer = (state = initialState, action) => {
+
+const imagesReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_IMAGES:
             const newImages = {};
@@ -120,12 +123,11 @@ const imagesReducer = (state = initialState, action) => {
                 newImages[image.id] = image;
             })
             return {
-                ...state,
                 ...newImages
             }
         case GET_ONE_IMAGE:
-            const newState = { ...state, entries: { ...state.entries } };
-            newState.entries[action.images.id] = action.images
+            const newState = { ...state };
+            newState[action.images.id] = action.images
             return newState
         case DELETE_IMAGES:
             const deleteState = { ...state };
@@ -134,8 +136,8 @@ const imagesReducer = (state = initialState, action) => {
         // const filteredImages = state.images.filter(image => image.id !== action.id)
         // return { ...state, images: filteredImages }
         case POST_IMAGES:
-            const postState = { ...state, entries: { ...state.entries } };
-            postState.entries[action.images.id] = action.images
+            const postState = { ...state };
+            postState[action.images.id] = action.images
             return postState;
         case PUT_IMAGES:
             return {
