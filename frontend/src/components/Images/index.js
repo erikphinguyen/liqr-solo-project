@@ -9,6 +9,7 @@ const Images = () => {
     const history = useHistory();
     const [images, setImages] = useState([])
     const imagesObj = useSelector(state => state.images)
+    // let images = Object.values(imagesObj)
     useEffect(() => {
         dispatch(thunkGetImages())
             .then(() => {
@@ -17,7 +18,7 @@ const Images = () => {
             })
     }, [dispatch])
 
-    if (!images.length) return null
+    if (!images.length) return <h1>no images</h1>
 
     const handleDelete = (id) => {
         dispatch(thunkDeleteImages(id))
@@ -26,6 +27,9 @@ const Images = () => {
             })
     }
 
+    console.log("TESTING IMAGESOBJ", imagesObj)
+    console.log("===========================================================")
+    console.log("TESTING IMAGES IN IMAGES INDEX", images)
     return (
         <div>
             <h2>Images</h2>
@@ -36,11 +40,14 @@ const Images = () => {
                         value={image.id}
                     >
                         {image.title}
-                        <button onClick={() => handleDelete(image.id)}>delete</button>
+                        {/* {`testing bug`} */}
+
+                        {/* https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg */}
                         <NavLink to={`/images/${image.id}`}>
                             <img src={image.imageUrl}></img>
+                            {/* <img src={`https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg`}></img> */}
                         </NavLink>
-
+                        <button onClick={() => handleDelete(image.id)}>Delete</button>
                     </div>
                 ))
             }

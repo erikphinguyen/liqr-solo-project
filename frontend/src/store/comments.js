@@ -69,26 +69,29 @@ export const thunkDeleteComments = (id) => async dispatch => {
 
 // REDUCER
 
-const initialState = { entries: {}, isLoading: true };
+// const initialState = { entries: {}, isLoading: true };
 
-const commentsReducer = (state = initialState, action) => {
+const commentsReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_COMMENTS:
-            const newComments = {};
+            const getState = {};
             action.comments.forEach(comment => {
-                newComments[comment.id] = comment;
+                getState[comment.id] = comment;
             })
             return {
-                ...state,
-                ...newComments
+                ...getState
             }
         case DELETE_COMMENTS:
             const deleteState = { ...state };
-            delete deleteState[action.commentId];
+            delete deleteState[action.id];
             return deleteState;
         case POST_COMMENTS:
-            const postState = { ...state, entries: { ...state.entries } };
-            postState.entries[action.images.id] = action.images
+            /*
+            // const postState = { ...state, entries: { ...state.entries } };
+            // postState.entries[action.comments.id] = action.comments;
+            */
+            const postState = { ...state };
+            postState[action.comments.id] = action.comments;
             return postState;
         default:
             return state;

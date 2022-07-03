@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 
-const { User, Image } = require('../../db/models');
+const { User, Image, Comment } = require('../../db/models');
 const db = require('../../db/models');
 const { requireAuth } = require('../../utils/validation')
 
@@ -19,7 +19,16 @@ router.get('/', asyncHandler(async function (req, res) {
 // GET SINGLE IMAGE
 router.get('/:id(\\d+)', asyncHandler(async function (req, res) {
     const { id } = req.params;
-    const image = await Image.findByPk(id);
+    const image = await Image.findByPk(id,
+        {
+            include: [{
+                model: Comment,
+                where: {
+                    imageId: id
+                }
+            }]
+        });
+    console.log(image)
     return res.json(image);
 }))
 
