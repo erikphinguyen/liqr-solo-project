@@ -95,7 +95,7 @@ function Navigation({ isLoaded }) {
                     <div className='right-nav-bar'>
                         {isLoaded && sessionLinks}
                     </div>
-                    <li class>
+                    <li>
                         <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Drinks</NavLink>
                     </li>
                 </li>

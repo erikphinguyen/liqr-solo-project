@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Route, useParams } from 'react-router-dom';
 import { thunkGetOneImage, thunkPutImages } from '../../store/images'
-import './onepage.css'
+import './index.css'
 import Comments from './comments'
+import { thunkPostCommments } from '../../store/comments';
 
 const OneImage = () => {
     const dispatch = useDispatch();
@@ -18,10 +19,15 @@ const OneImage = () => {
     // console.log('TESTING COMMENTS', comments)
     const [editMode, setEditMode] = useState(false)
 
+    const [newComment, setNewComment] = useState({
+        content: ''
+    });
+
 
     const [newImageData, setNewImageData] = useState({
         title: '',
         imageUrl: '',
+        contributor: '',
         ingredients: ''
     })
 
@@ -29,6 +35,8 @@ const OneImage = () => {
     useEffect(() => {
         dispatch(thunkGetOneImage(id))
     }, [dispatch, id])
+
+    // maybe call this handleSubmitImages so we can make handleSubmitComments (post)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,9 +58,15 @@ const OneImage = () => {
                     alt={singleImage.title}
                 />
                 <p>
-                    {singleImage.ingredients}
+                    <b>Ingredients:</b> {singleImage.ingredients}
                 </p>
-                <button onClick={() => setEditMode(true)}>edit</button>
+                <p>
+                    <b>Contributor:</b> {singleImage.contributor}
+                </p>
+                <button className='button' onClick={() => setEditMode(true)}>Edit Drink</button>
+                <div>
+                    <button className='button' onClick={() => setNewComment(true)}>Add A Comment</button>
+                </div>
             </div>
 
             {
@@ -60,22 +74,43 @@ const OneImage = () => {
                     <div>
                         <input
                             type='text'
-                            placeholder={singleImage.title}
+                            placeholder='New Title'
                             onChange={(e) => setNewImageData({ ...newImageData, title: e.target.value })}
                         />
                         <input
                             type='text'
-                            placeholder={singleImage.imageUrl}
+                            placeholder='New Image URL'
                             onChange={(e) => setNewImageData({ ...newImageData, imageUrl: e.target.value })} />
 
                         <input
                             type='text'
-                            placeholder={singleImage.ingredients}
+                            placeholder='New Contributor'
+                            onChange={(e) => setNewImageData({ ...newImageData, contributor: e.target.value })} />
+
+                        <input
+                            type='text'
+                            placeholder='New Ingredients'
                             onChange={(e) => setNewImageData({ ...newImageData, ingredients: e.target.value })} />
-                        <button onClick={handleSubmit}>save</button>
+                        <button className='button' onClick={handleSubmit}>Save</button>
                     </div>
                 ) : null
             }
+
+            {/* THIS BREAKS THE APP, NEED HANDLE SUBMIT TO MATCH COMMENT ACTION */}
+
+            {/* {
+                newComment ? (
+                    <div>
+                        <input
+                            type='text'
+                            placeholder='New Comment'
+                            onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
+                        />
+                        <button className='button' onClick={handleSubmit}>Save</button>
+                    </div>
+                ) : null
+            } */}
+
             <div>
                 <Comments comments={comments} />
             </div>

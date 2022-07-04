@@ -1,0 +1,31 @@
+h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.grid-images-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    grid-column: 3 200px;
+    column-gap: 2 rem;
+    margin: 100px;
+}
+
+.images-container {
+    display: inline-block;
+    margin: 100px;
+    border: 5px;
+}
+
+.image-display {
+    position: relative;
+}
+
+.image {
+    display: block;
+
+}

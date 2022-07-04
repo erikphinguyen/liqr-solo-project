@@ -31,6 +31,7 @@ function LoginForm() {
                 Username or Email
                 <input
                     type="text"
+                    placeholder='Username or Email'
                     value={credential}
                     onChange={(e) => setCredential(e.target.value)}
                     required
@@ -40,6 +41,7 @@ function LoginForm() {
                 Password
                 <input
                     type="password"
+                    placeholder='Password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
