@@ -27,30 +27,35 @@ const Images = () => {
             })
     }
 
-    console.log("TESTING IMAGESOBJ", imagesObj)
-    console.log("===========================================================")
-    console.log("TESTING IMAGES IN IMAGES INDEX", images)
+    // console.log("TESTING IMAGESOBJ", imagesObj)
+    // console.log("===========================================================")
+    // console.log("TESTING IMAGES IN IMAGES INDEX", images)
     return (
-        <div>
-            <h2>Images</h2>
-            {
-                images.map((image) => (
-                    <div
-                        key={image.id}
-                        value={image.id}
-                    >
-                        {image.title}
-                        {/* {`testing bug`} */}
+        <div className='grid-images-container'>
+            <h2>Feeling adventurous? Checkout these cocktails!</h2>
+            <div className='grid-images-container'>
+                {
+                    images.map((image) => (
+                        <div
+                            key={image.id}
+                            value={image.id}
+                            className='image-container'
+                        >
+                            {/* {image.title} */}
+                            {/* {`testing bug`} */}
 
-                        {/* https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg */}
-                        <NavLink to={`/images/${image.id}`}>
-                            <img src={image.imageUrl}></img>
-                            {/* <img src={`https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg`}></img> */}
-                        </NavLink>
-                        <button onClick={() => handleDelete(image.id)}>Delete</button>
-                    </div>
-                ))
-            }
+                            {/* https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg */}
+                            <div className='image-display'>
+                                <NavLink to={`/images/${image.id}`}>
+                                    <img className='image' src={image.imageUrl}></img>
+                                    {/* <img src={`https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg`}></img> */}
+                                </NavLink>
+                            </div>
+                            <button className='button' onClick={() => handleDelete(image.id)}>Delete</button>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
     );
 }

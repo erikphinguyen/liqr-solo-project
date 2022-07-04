@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { thunkGetComments, thunkPostCommments } from '../../store/comments';
 import { thunkGetOneImage, thunkPutImages } from '../../store/images';
-import './onepage.css';
+import './index.css';
 
 const Comments = ({ comments }) => {
     const dispatch = useDispatch();
@@ -33,6 +33,8 @@ const Comments = ({ comments }) => {
 
     // if (!commentsArr) return null
 
+    // ON LINE __: isn't comment connected to User.username?
+
     return (
         <div>
             <h3>Comments</h3>
@@ -42,6 +44,7 @@ const Comments = ({ comments }) => {
                         key={comment.id}
                     >
                         {/* <div>{`${comment.User.id} says`}</div> */}
+                        {/* {`@${comment.User.username}`} */}
                         {comment.content}
                     </div>
                 ))
