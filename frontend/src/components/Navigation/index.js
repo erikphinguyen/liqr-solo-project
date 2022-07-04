@@ -44,6 +44,7 @@ import SignUpFormModal from '../SignUpFormModal';
 import './Navigation.css';
 import PostImage from '../PostImage'
 import { thunkPostImages } from '../../store/images'
+import Demo from '../Demo'
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -99,6 +100,7 @@ function Navigation({ isLoaded }) {
                     </li>
                 </li>
             </ul>
+                <Demo />
         </nav>
     );
 }

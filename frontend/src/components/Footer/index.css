@@ -25,3 +25,21 @@
     flex-direction: row;
     justify-content: flex-end;
 }
+
+.fa-github-alt, .fa-linkedin {
+    letter-spacing: 0.05em;
+    color: white;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .fa-github-alt:hover, .fa-linkedin:hover {
+    letter-spacing: 0.05em;
+    color: white;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }

@@ -46,6 +46,11 @@ import { thunkGetImages, thunkGetOneImage } from "./store/images";
 import { thunkGetComments } from "./store/comments";
 import HomePage from "./components/HomePage"
 import Footer from "./components/Footer"
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fas } from '@fortawesome/free-solid-svg-icons'
+// import { faGithub, faGitHub, faTwitter, faFontAwesome } from '@fortawesome/free-brands-svg-icons'
+
+// library.add(fas, faGithub, faGitHub, faTwitter, faFontAwesome)
 
 function App() {
   const dispatch = useDispatch();
