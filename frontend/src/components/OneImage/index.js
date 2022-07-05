@@ -44,23 +44,42 @@ const OneImage = () => {
 
     // maybe call this handleSubmitImages so we can make handleSubmitComments (post)
 
-    const handleSubmit = (e, type) => {
-        e.preventDefault();
+    // const handleSubmit = (e, type) => {
+    //     e.preventDefault();
 
-        if (type === 'edit') {
-            let data = {
-                id: singleImage.id,
-                ...newImageData
-            }
-            dispatch(thunkPutImages(data))
-        } else if (type === 'comment') {
-            let data = {
-                imageId: id,
-                content: newComment.content
-            }
-            dispatch(thunkPostCommments(data))
-                .then(res => setOneImageComments([...oneImageComments, res]))
+    //     if (type === 'edit') {
+    //         let data = {
+    //             id: singleImage.id,
+    //             ...newImageData
+    //         }
+    //         dispatch(thunkPutImages(data))
+    //     } else if (type === 'comment') {
+    //         let data = {
+    //             imageId: id,
+    //             content: newComment.content
+    //         }
+    //         dispatch(thunkPostCommments(data))
+    //             .then(res => setOneImageComments([...oneImageComments, res]))
+    //     }
+    // }
+
+    const handleSubmitEdit = e => {
+        e.preventDefault();
+        let data = {
+            id: singleImage.id,
+            ...newImageData
         }
+        dispatch(thunkPutImages(data))
+    }
+
+    const handleSubmitComment = e => {
+        e.preventDefault();
+        let data = {
+            imageId: id,
+            content: newComment.content
+        }
+        dispatch(thunkPostCommments(data))
+            .then(res => setOneImageComments([...oneImageComments, res]))
     }
 
     if (!singleImage) return null
@@ -79,7 +98,7 @@ const OneImage = () => {
                 <p>
                     <b>Contributor:</b> {singleImage.contributor}
                 </p>
-                <button className='button' onClick={() => setEditMode(true)}>Edit Drink</button>
+                <button className='button' onClick={() => setEditMode(true)}>Edit Drink Title</button>
                 {/* <div>
                     <button className='button' onClick={() => setNewComment(true)}>Add A Comment</button>
                 </div> */}
@@ -93,7 +112,7 @@ const OneImage = () => {
                             placeholder='New Title'
                             onChange={(e) => setNewImageData({ ...newImageData, title: e.target.value })}
                         />
-                        <input
+                        {/* <input
                             type='text'
                             placeholder='New Image URL'
                             onChange={(e) => setNewImageData({ ...newImageData, imageUrl: e.target.value })} />
@@ -101,13 +120,14 @@ const OneImage = () => {
                         <input
                             type='text'
                             placeholder='New Contributor'
-                            onChange={(e) => setNewImageData({ ...newImageData, contributor: e.target.value })} />
+                            onChange={(e) => setNewImageData({ ...newImageData, contributor: e.target.value })} /> */}
 
                         {/* <input
                             type='text'
                             placeholder='New Ingredients'
                             onChange={(e) => setNewImageData({ ...newImageData, ingredients: e.target.value })} /> */}
-                        <button className='button' onClick={() => handleSubmit('edit')}>Save</button>
+                        {/* <button className='button' onClick={() => handleSubmit('edit')}>Save</button> */}
+                        <button className='button' onClick={handleSubmitEdit}>Save</button>
                     </div>
                 ) : null
             }
@@ -122,7 +142,8 @@ const OneImage = () => {
                             placeholder='Add A Comment'
                             onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
                         />
-                        <button className='button' onClick={(e) => handleSubmit(e, 'comment')}>Save</button>
+                        {/* <button className='button' onClick={(e) => handleSubmit(e, 'comment')}>Save</button> */}
+                        <button className='button' onClick={handleSubmitComment}>Save</button>
                     </div>
                 ) : null
             }
