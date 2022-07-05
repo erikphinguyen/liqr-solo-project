@@ -80,9 +80,9 @@ const OneImage = () => {
                     <b>Contributor:</b> {singleImage.contributor}
                 </p>
                 <button className='button' onClick={() => setEditMode(true)}>Edit Drink</button>
-                <div>
+                {/* <div>
                     <button className='button' onClick={() => setNewComment(true)}>Add A Comment</button>
-                </div>
+                </div> */}
             </div>
 
             {
@@ -103,10 +103,10 @@ const OneImage = () => {
                             placeholder='New Contributor'
                             onChange={(e) => setNewImageData({ ...newImageData, contributor: e.target.value })} />
 
-                        <input
+                        {/* <input
                             type='text'
                             placeholder='New Ingredients'
-                            onChange={(e) => setNewImageData({ ...newImageData, ingredients: e.target.value })} />
+                            onChange={(e) => setNewImageData({ ...newImageData, ingredients: e.target.value })} /> */}
                         <button className='button' onClick={() => handleSubmit('edit')}>Save</button>
                     </div>
                 ) : null
@@ -119,7 +119,7 @@ const OneImage = () => {
                     <div>
                         <input
                             type='text'
-                            placeholder='New Comment'
+                            placeholder='Add A Comment'
                             onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
                         />
                         <button className='button' onClick={(e) => handleSubmit(e, 'comment')}>Save</button>
