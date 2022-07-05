@@ -14,7 +14,7 @@ function PostImage() {
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
     const [contributor, setContributor] = useState('');
-    const [ingredients, setIngredients] = useState('');
+    // const [ingredients, setIngredients] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,19 +22,23 @@ function PostImage() {
             imageUrl,
             title,
             contributor,
-            ingredients
+            // ingredients
         };
 
         const image = await dispatch(thunkPostImages(newImage))
-        if (image) reset();
+        if (image) {
+            reset();
+            history.push(`/images/${image.id}`)
+        }
     };
 
     const reset = () => {
         setImageUrl('');
         setTitle('');
         setContributor('');
-        setIngredients('');
+        // setIngredients('');
     };
+
 
     return (
         <div className='inputImage'>
@@ -61,13 +65,13 @@ function PostImage() {
                     placeholder='Contributor'
                     name='contributor'
                 />
-                <input
+                {/* <input
                     type='text'
                     onChange={(event) => setIngredients(event.target.value)}
                     value={ingredients}
                     placeholder='Ingredients'
                     name='ingredients'
-                />
+                /> */}
                 <button className='button' type='submit'>Submit</button>
             </form>
         </div>
