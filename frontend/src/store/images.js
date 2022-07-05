@@ -59,11 +59,12 @@ export const thunkGetImages = () => async (dispatch) => {
 export const thunkGetOneImage = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/images/${id}`)
 
-    console.log("RESPONSE TEST", response)
+    // console.log("RESPONSE TEST", response)
     if (response.ok) {
         const images = await response.json();
-        console.log(images)
+        // console.log(images)
         dispatch(getOneImage(images));
+        return images
     }
 }
 

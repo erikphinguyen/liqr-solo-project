@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Route, useParams, useHistory } from 'react-router-dom';
-import { thunkGetComments, thunkPostCommments } from '../../store/comments';
+import { thunkGetComments, thunkPostCommments, thunkDeleteComments } from '../../store/comments';
 import { thunkGetOneImage, thunkPutImages } from '../../store/images';
 import './index.css';
 
-const Comments = ({ comments }) => {
+const Comments = ({ comments, setOneImageComments }) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     console.log("TESTING COMMENTS IN COMMENTS.JS", comments)
@@ -35,6 +35,14 @@ const Comments = ({ comments }) => {
 
     // ON LINE __: isn't comment connected to User.username?
 
+    const handleDeleteComment = (commentId) => {
+        dispatch(thunkDeleteComments(commentId))
+            .then(() => {
+                let newComments = comments.filter(el => el.id !== commentId)
+                setOneImageComments(newComments)
+            })
+    }
+
     return (
         <div>
             <h3>Comments</h3>
@@ -45,7 +53,8 @@ const Comments = ({ comments }) => {
                     >
                         {/* <div>{`${comment.User.id} says`}</div> */}
                         {/* {`@${comment.User.username}`} */}
-                        {comment.content}
+                        <p>{comment.content}</p>
+                        <button className='button' onClick={() => handleDeleteComment(comment.id)}>Delete Comment</button>
                     </div>
                 ))
             }

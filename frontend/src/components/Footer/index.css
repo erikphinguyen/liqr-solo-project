@@ -3,11 +3,22 @@
     bottom: 0;
     text-align: center;
     width: 100%;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     left: 0;
+    color: white;
 }
 
-.footer-list {
+.footer>ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.footer>ul>li {
+    text-decoration: none;
+    list-style: none;
+}
+
+/* .footer-list {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -24,22 +35,24 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+} */
+
+.fa-github-alt,
+.fa-linkedin {
+    letter-spacing: 0.05em;
+    color: white;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
-.fa-github-alt, .fa-linkedin {
+.fa-github-alt:hover,
+.fa-linkedin:hover {
     letter-spacing: 0.05em;
     color: white;
     list-style: none;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-  }
-
-  .fa-github-alt:hover, .fa-linkedin:hover {
-    letter-spacing: 0.05em;
-    color: white;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
+}
