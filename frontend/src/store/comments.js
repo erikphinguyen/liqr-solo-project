@@ -40,6 +40,7 @@ export const thunkGetComments = () => async (dispatch) => {
 }
 
 export const thunkPostCommments = (data) => async dispatch => {
+    console.log(data)
     const response = await csrfFetch(`/api/comments/${data.imageId}`, {
         method: 'POST',
         headers: {
@@ -47,7 +48,6 @@ export const thunkPostCommments = (data) => async dispatch => {
         },
         body: JSON.stringify(data)
     });
-
     if (response.ok) {
         const comments = await response.json();
         dispatch(postComments(comments));

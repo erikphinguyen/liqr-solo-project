@@ -2,12 +2,12 @@
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
     userId: {
-      allowedNull: false,
+      allowedNull: true,
       type: DataTypes.INTEGER,
       references: { model: "Users" }
     },
     imageId: {
-      allowedNull: false,
+      allowedNull: true,
       type: DataTypes.INTEGER,
       references: { model: "Images" }
     },

@@ -57,8 +57,8 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser())
-      // to hydrate on initial render
-      // .then(thunkGetImages())
+    // to hydrate on initial render
+    dispatch(thunkGetImages())
       // .then(thunkGetOneImage())
       // .then(thunkGetComments())
       .then(() => setIsLoaded(true));

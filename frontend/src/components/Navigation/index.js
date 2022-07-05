@@ -57,50 +57,47 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <nav>
-                <div className='right-nav-bar'>
+            <>
+                <div>
                     <ProfileButton user={sessionUser} />
                 </div>
-                <div className='upload-button-container'>
+                <div>
                     {/* <NavLink to="/upload">Upload Drink</NavLink> */}
                     {/* <PostImage user={sessionUser} /> */}
                 </div>
-            </nav>
+            </>
         );
     } else {
         sessionLinks = (
-            <nav>
-                <>
-                    <li>
-                        <LoginFormModal />
-                    </li>
-                    <li>
-                        <SignUpFormModal />
-                    </li>
-                </>
-                {/* <div className='right-nav-bar'>
-                    <NavLink to="/signup">Sign Up</NavLink>
-                </div> */}
-            </nav>
+            <>
+                <div>
+                    <LoginFormModal />
+                </div>
+                <div>
+                    <SignUpFormModal />
+                </div>
+                <div>
+                    <Demo />
+                </div>
+            </>
         );
     }
 
     return (
-        <nav className='navigation'>
+        <nav>
             <ul className='navigation'>
-                <li>
-                    <li className='left-nav-bar'>
+                <div>
+                    <div>
                         <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}>liqr</NavLink>
-                    </li>
-                    <div className='right-nav-bar'>
-                        {isLoaded && sessionLinks}
                     </div>
-                    <li>
+                    <div>
                         <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Drinks</NavLink>
-                    </li>
-                </li>
+                    </div>
+                </div>
+                <div>
+                    {isLoaded && sessionLinks}
+                </div>
             </ul>
-                <Demo />
         </nav>
     );
 }

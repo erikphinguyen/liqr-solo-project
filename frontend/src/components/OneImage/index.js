@@ -23,6 +23,8 @@ const OneImage = () => {
         content: ''
     });
 
+    const [oneImageComments, setOneImageComments] = useState([])
+
 
     const [newImageData, setNewImageData] = useState({
         title: '',
@@ -34,17 +36,31 @@ const OneImage = () => {
 
     useEffect(() => {
         dispatch(thunkGetOneImage(id))
+            .then(res => {
+                setOneImageComments(res.Comments)
+            })
+            .catch(err => console.log(err))
     }, [dispatch, id])
 
     // maybe call this handleSubmitImages so we can make handleSubmitComments (post)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e, type) => {
         e.preventDefault();
-        let data = {
-            id: singleImage.id,
-            ...newImageData
+
+        if (type === 'edit') {
+            let data = {
+                id: singleImage.id,
+                ...newImageData
+            }
+            dispatch(thunkPutImages(data))
+        } else if (type === 'comment') {
+            let data = {
+                imageId: id,
+                content: newComment.content
+            }
+            dispatch(thunkPostCommments(data))
+                .then(res => setOneImageComments([...oneImageComments, res]))
         }
-        dispatch(thunkPutImages(data))
     }
 
     if (!singleImage) return null
@@ -57,9 +73,9 @@ const OneImage = () => {
                     src={singleImage.imageUrl}
                     alt={singleImage.title}
                 />
-                <p>
+                {/* <p>
                     <b>Ingredients:</b> {singleImage.ingredients}
-                </p>
+                </p> */}
                 <p>
                     <b>Contributor:</b> {singleImage.contributor}
                 </p>
@@ -91,14 +107,14 @@ const OneImage = () => {
                             type='text'
                             placeholder='New Ingredients'
                             onChange={(e) => setNewImageData({ ...newImageData, ingredients: e.target.value })} />
-                        <button className='button' onClick={handleSubmit}>Save</button>
+                        <button className='button' onClick={() => handleSubmit('edit')}>Save</button>
                     </div>
                 ) : null
             }
 
             {/* THIS BREAKS THE APP, NEED HANDLE SUBMIT TO MATCH COMMENT ACTION */}
 
-            {/* {
+            {
                 newComment ? (
                     <div>
                         <input
@@ -106,13 +122,13 @@ const OneImage = () => {
                             placeholder='New Comment'
                             onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
                         />
-                        <button className='button' onClick={handleSubmit}>Save</button>
+                        <button className='button' onClick={(e) => handleSubmit(e, 'comment')}>Save</button>
                     </div>
                 ) : null
-            } */}
+            }
 
             <div>
-                <Comments comments={comments} />
+                <Comments comments={oneImageComments} setOneImageComments={setOneImageComments} />
             </div>
 
         </div>

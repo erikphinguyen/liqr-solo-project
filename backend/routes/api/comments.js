@@ -8,9 +8,10 @@ const { User, Image } = require('../../db/models');
 const { check, validationResult } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { db } = require('../../config');
+const { Comment } = require('../../db/models')
 
 // GET ALL COMMENTS OF CERTAIN IMAGE
-router.get('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const image = await Image.findByPk(id);
     let comments = await Comment.findAll({
@@ -21,18 +22,20 @@ router.get('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, res)
 }));
 
 // POST COMMENT
-router.post('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { userId, content } = req.body;
+    const { content, imageId } = req.body;
     const newComment = await Comment.create({
-        userId, content, id
+        content, imageId
     });
+    // const newComment = new Comment({ content, id})
+    // await newComment.save()
     const payload = await Comment.findByPk(newComment.id)
     return res.json(payload);
 }))
 
 //  // DELETE COMMENT
-router.delete('/:id(\\d+)', requireUser, restoreUser, asyncHandler(async (req, res) => {
+router.delete('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const comment = await Comment.findByPk(id)
     await comment.destroy();

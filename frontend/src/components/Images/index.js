@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { thunkGetImages, thunkDeleteImages } from '../../store/images'
+import './images.css'
 
 const Images = () => {
     const dispatch = useDispatch();
@@ -11,11 +12,11 @@ const Images = () => {
     const imagesObj = useSelector(state => state.images)
     // let images = Object.values(imagesObj)
     useEffect(() => {
-        dispatch(thunkGetImages())
-            .then(() => {
-                let imagesArr = Object.values(imagesObj)
-                setImages(imagesArr)
-            })
+        // dispatch(thunkGetImages())
+        // .then(() => {
+        let imagesArr = Object.values(imagesObj)
+        setImages(imagesArr)
+        // })
     }, [dispatch])
 
     if (!images.length) return <h1>no images</h1>
@@ -31,7 +32,7 @@ const Images = () => {
     // console.log("===========================================================")
     // console.log("TESTING IMAGES IN IMAGES INDEX", images)
     return (
-        <div className='grid-images-container'>
+        <div>
             <h2>Feeling adventurous? Checkout these cocktails!</h2>
             <div className='grid-images-container'>
                 {
@@ -39,15 +40,15 @@ const Images = () => {
                         <div
                             key={image.id}
                             value={image.id}
-                            className='image-container'
+                            className='image-container-main'
                         >
                             {/* {image.title} */}
                             {/* {`testing bug`} */}
 
                             {/* https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg */}
-                            <div className='image-display'>
+                            <div className='image-container'>
                                 <NavLink to={`/images/${image.id}`}>
-                                    <img className='image' src={image.imageUrl}></img>
+                                    <img className='img' src={image.imageUrl}></img>
                                     {/* <img src={`https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg`}></img> */}
                                 </NavLink>
                             </div>
