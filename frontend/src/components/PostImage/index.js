@@ -68,7 +68,7 @@ function PostImage() {
                     placeholder='Ingredients'
                     name='ingredients'
                 />
-                <button type='submit'>Submit</button>
+                <button className='button' type='submit'>Submit</button>
             </form>
         </div>
 

@@ -63,7 +63,7 @@ function Navigation({ isLoaded }) {
                 </div>
                 <div>
                     {/* <NavLink to="/upload">Upload Drink</NavLink> */}
-                    {/* <PostImage user={sessionUser} /> */}
+                    <PostImage user={sessionUser} />
                 </div>
             </>
         );
@@ -88,7 +88,7 @@ function Navigation({ isLoaded }) {
             <ul className='navigation'>
                 <div>
                     <div>
-                        <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}>liqr</NavLink>
+                        <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}> <b>liqr</b></NavLink>
                     </div>
                     <div>
                         <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Drinks</NavLink>
