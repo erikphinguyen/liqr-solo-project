@@ -41,6 +41,7 @@ router.post('/', asyncHandler(async function (req, res) {
 // SEARCH BAR FOR IMAGES BACKEND
 router.post('/search', asyncHandler(async function (req, res) {
     const {searchTerm} = req.body;
+    console.log('WAHT IS SEARCH TERM', searchTerm)
     const images = await Image.findAll();
     let filtered = images.filter(el => {
         return el.name.toLowerCase().includes(searchTerm.toLowerCase())
