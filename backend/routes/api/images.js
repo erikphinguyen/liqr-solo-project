@@ -38,6 +38,17 @@ router.post('/', asyncHandler(async function (req, res) {
     return res.json(id)
 }))
 
+// SEARCH BAR FOR IMAGES BACKEND
+router.post('/search', asyncHandler(async function (req, res) {
+    const {searchTerm} = req.body;
+    console.log('WAHT IS SEARCH TERM', searchTerm)
+    const images = await Image.findAll();
+    let filtered = images.filter(el => {
+        return el.name.toLowerCase().includes(searchTerm.toLowerCase())
+    })
+    return res.json(filtered)
+}))
+
 // PUT (UPDATE) IMAGES, EXTRA HELP
 router.put('/:id', asyncHandler(async (req, res) => {
     const { title, imageUrl, ingredients } = req.body
