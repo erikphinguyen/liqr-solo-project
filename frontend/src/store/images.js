@@ -59,10 +59,10 @@ export const thunkGetImages = () => async (dispatch) => {
 export const thunkGetOneImage = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/images/${id}`)
 
-    // console.log("RESPONSE TEST", response)
+    console.log("RESPONSE TEST IN THUNK GET ONE IMAGE", response)
     if (response.ok) {
         const images = await response.json();
-        // console.log(images)
+        console.log('IF RESPONSE OK IN THUNK GET ONE IMAGE', images)
         dispatch(getOneImage(images));
         return images
     }
@@ -117,6 +117,7 @@ export const thunkDeleteImages = (id) => async dispatch => {
 
 
 const imagesReducer = (state = {}, action) => {
+    console.log('HITTING IMAGES REDUCER')
     switch (action.type) {
         case GET_IMAGES:
             const newImages = {};
@@ -127,6 +128,7 @@ const imagesReducer = (state = {}, action) => {
                 ...newImages
             }
         case GET_ONE_IMAGE:
+            console.log('HITTING GET ONE IMAGE IN REDUCER')
             const newState = { ...state };
             newState[action.images.id] = action.images
             return newState
