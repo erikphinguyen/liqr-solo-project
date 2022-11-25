@@ -10,6 +10,7 @@ const Images = () => {
     const history = useHistory();
     const [images, setImages] = useState([])
     const imagesObj = useSelector(state => state.images)
+    const user = useSelector(state => state.session.user)
     // let images = Object.values(imagesObj)
     useEffect(() => {
         // dispatch(thunkGetImages())
@@ -52,7 +53,12 @@ const Images = () => {
                                     {/* <img src={`https://i.pinimg.com/564x/1f/90/4a/1f904af5ee37e0d250ae681a80e7efe1.jpg`}></img> */}
                                 </NavLink>
                             </div>
-                            <button className='button' onClick={() => handleDelete(image.id)}>Delete</button>
+                            {console.log('WHAT IS IMAGE', image)}
+                            {
+                                user?.id === image.userId && (
+                                    <button className='button' onClick={() => handleDelete(image.id)}>Delete</button>
+                                )
+                            }
                         </div>
                     ))
                 }
