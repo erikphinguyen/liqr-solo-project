@@ -48,9 +48,10 @@ function SearchBar({ placeholder }) {
             {(filteredData.length !== 0) && (
                 <div className='dataResult'>
                     {filteredData.map((image) => {
+                        console.log('WHAT IS IMAGE SEARCH BAR', image)
                         return <NavLink to={`/images/${image.id}`} className='dataItem' target="_blank">
                             <p>
-                                {image.name}
+                                {image.title}
                             </p>
                         </NavLink>
                     })}
