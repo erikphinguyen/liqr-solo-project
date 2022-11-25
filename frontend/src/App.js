@@ -64,9 +64,11 @@ function App() {
       .then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  const [images, setImages] = useState([]);
+
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+      <Navigation isLoaded={isLoaded} images={images} setImages={setImages} />
       {isLoaded && (
         <Switch>
           <Route exact path="/">
