@@ -42,11 +42,13 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import './Navigation.css';
-import PostImage from '../PostImage'
-import { thunkPostImages } from '../../store/images'
-import Demo from '../Demo'
+import PostImage from '../PostImage';
+import { thunkPostImages } from '../../store/images';
+import Demo from '../Demo';
+import SearchBar from '../SearchBar/SearchBar';
+import PostImageModal from '../PostImageModal';
 
-function Navigation({ isLoaded }) {
+function Navigation({ isLoaded, images, setImages }) {
     const sessionUser = useSelector(state => state.session.user);
 
     const handleSubmit = (e) => {
@@ -63,7 +65,7 @@ function Navigation({ isLoaded }) {
                 </div>
                 <div>
                     {/* <NavLink to="/upload">Upload Drink</NavLink> */}
-                    <PostImage user={sessionUser} />
+                    <PostImageModal images={images} setImages={setImages} />
                 </div>
             </>
         );
@@ -89,6 +91,9 @@ function Navigation({ isLoaded }) {
                 <div>
                     <div>
                         <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}> <b>liqr</b></NavLink>
+                    </div>
+                    <div className='search-container'>
+                    <SearchBar placeholder="Find a Drink Here!" />
                     </div>
                     <div>
                         <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Drinks</NavLink>

@@ -5,6 +5,7 @@ module.exports = {
 
     return queryInterface.bulkInsert('Images', [
       {
+        userId: "1" ,
         imageUrl: "https://i.pinimg.com/564x/63/d3/21/63d321ce5db9b2de0c9915dde98f0809.jpg",
         title: "Pomegranate Champagne Spritzers",
         contributor: "thecollegehousewife.com",
@@ -13,6 +14,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "2" ,
         imageUrl: "https://i.pinimg.com/564x/bb/a3/5e/bba35e8c7242dfcc0b5f64f0fda1ce8a.jpg",
         title: "Sparkling Passion Fruit and Pineapple Margaritas",
         contributor: "babyrockmyday.com",
@@ -21,6 +23,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "3" ,
         imageUrl: "https://i.pinimg.com/564x/c0/65/4b/c0654b06054bb6758871295895db2c60.jpg",
         title: "Vanilla Maple Roasted Pear Sparkling Cocktails",
         contributor: "bluebowlrecipes.com",
@@ -29,6 +32,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "1" ,
         imageUrl: "https://i.pinimg.com/564x/25/5e/49/255e49333f8428f0b01b10bde6b44f87.jpg",
         title: "Pomegranate Ginger Paloma",
         contributor: "halfbakedharvest.com",
@@ -37,6 +41,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "2" ,
         imageUrl: "https://i.pinimg.com/564x/1b/98/98/1b98982b17da400e556a7c4b972eb9da.jpg",
         title: "Honey Winter Bourbon Cocktail with Honey Sage Syrup",
         contributor: "onebroadsjourney.com",
@@ -45,6 +50,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "3" ,
         imageUrl: "https://i.pinimg.com/564x/91/ae/35/91ae350caa57b8251fe3df36b70d3613.jpg",
         title: "Lemon Brulee and Rosemary Gin Sour",
         contributor: "liqculture.com",
@@ -53,6 +59,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "1" ,
         imageUrl: "https://i.pinimg.com/564x/18/f6/e1/18f6e13bc0af43e4a3c00c5764260e3c.jpg",
         title: "Garden Cherry Bourbon Smash",
         contributor: "halfbakedharvest.com",
@@ -61,6 +68,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "2" ,
         imageUrl: "https://i.pinimg.com/564x/7a/72/e4/7a72e421e04f68f53eb3cbfedb6b14e4.jpg",
         title: "Sparkling Fig & Honey Cocktail",
         contributor: "helloglow.co",
@@ -69,6 +77,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "3" ,
         imageUrl: "https://i.pinimg.com/564x/8a/8e/59/8a8e5998fafaff58d9bca4feb7368332.jpg",
         title: "Tequila Kombucha Cocktail",
         contributor: "nourish-and-fete.com",
@@ -77,6 +86,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "1" ,
         imageUrl: "https://i.pinimg.com/564x/23/40/16/2340160810b295080102b0b30c8cb663.jpg",
         title: "Fig Honey Thyme Prosecco Smash",
         contributor: "halfbakedharvest.com",
@@ -85,6 +95,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "2" ,
         imageUrl: "https://i.pinimg.com/564x/a7/82/7c/a7827c7e20ad6a0a8120472b63bee756.jpg",
         title: "The Hermione Granger Cocktail",
         contributor: "halfbakedharvest.com",
@@ -93,6 +104,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: "3" ,
         imageUrl: "https://i.pinimg.com/564x/a6/ad/14/a6ad14a53741a413e43cbc20002aa8b4.jpg",
         title: "Spicy Sweet Grinch Cocktail",
         contributor: "halfbakedharvest.com",
