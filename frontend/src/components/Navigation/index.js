@@ -42,9 +42,10 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import './Navigation.css';
-import PostImage from '../PostImage'
-import { thunkPostImages } from '../../store/images'
-import Demo from '../Demo'
+import PostImage from '../PostImage';
+import { thunkPostImages } from '../../store/images';
+import Demo from '../Demo';
+import SearchBar from '../SearchBar/SearchBar';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -89,6 +90,9 @@ function Navigation({ isLoaded }) {
                 <div>
                     <div>
                         <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}> <b>liqr</b></NavLink>
+                    </div>
+                    <div className='search-container'>
+                    <SearchBar placeholder="Find a Cocktail Here!" />
                     </div>
                     <div>
                         <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Drinks</NavLink>
