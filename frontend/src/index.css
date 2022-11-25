@@ -37,3 +37,7 @@ body {
     align-items: center;
     padding: 5px;
 }
+
+.hidden {
+    opacity: 0;
+}

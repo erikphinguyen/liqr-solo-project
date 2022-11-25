@@ -59,6 +59,9 @@ const Images = () => {
                                     <button className='button' onClick={() => handleDelete(image.id)}>Delete</button>
                                 )
                             }
+                            <div className='hidden'>
+                                .
+                            </div>
                         </div>
                     ))
                 }

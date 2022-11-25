@@ -92,11 +92,11 @@ function Navigation({ isLoaded, images, setImages }) {
                     <div>
                         <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}> <b>liqr</b></NavLink>
                     </div>
-                    <div className='search-container'>
-                    <SearchBar placeholder="Find a Drink Here!" />
-                    </div>
                     <div>
                         <NavLink to="/images" exact={true} activeStyle={{ fontWeight: "bold" }}>Drinks</NavLink>
+                    </div>
+                    <div className='search-container'>
+                    <SearchBar placeholder="Find a Drink Here!" />
                     </div>
                 </div>
                 <div>
