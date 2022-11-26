@@ -13,7 +13,7 @@ Visit the live site here: https://liqr.onrender.com/
 * **Hosting:** Render
 
 ## How to Start:
-1. Clone this repository @ https://github.com/erikphinguyen/wearbnb
+1. Clone this repository @ https://github.com/erikphinguyen/liqr-solo-project
 2. Install all dependencies in both backend and frontend via "npm install" in the terminal
 3. Create your **.env** file in the backend folder; there is an **.env-example** in case you need help
 4. Ensure PostgreSQL matches **.env** file
