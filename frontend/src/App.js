@@ -65,7 +65,8 @@ function App() {
   }, [dispatch]);
 
   const [images, setImages] = useState([]);
-
+  
+  //console.log('checking deployment')
   return (
     <>
       <Navigation isLoaded={isLoaded} images={images} setImages={setImages} />
